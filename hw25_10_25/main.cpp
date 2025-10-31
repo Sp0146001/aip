@@ -1,17 +1,49 @@
 #include <iostream>
-using u_t = unsigned;
-size_t gcd(size_t a, size_t  b){
-	return gcd(b, a%b);
+#include <limits>
+
+size_t max_u(){
+	using namespace std;
+	using u_limit = numeric_limits< size_t >;
+	return u_limit::max();
 }
-size_t lcm(size_t  a, size_t  b){
-	return a*b/(gcd(a,b));
+size_t min_u(){
+        using namespace std;
+        using u_limit = numeric_limits< size_t >;
+        return u_limit::min();
+}
+
+ize_t lcm(size_t  a, size_t  b){
+        while(a>0 && b>0){
+                if(a>b){
+                        a%=b;
+                } else {
+                        b%=a;
+                }
+        return a+b;
+}
+
+size_t ovrflw(size_t a, size_t b){ //runtime-error
+	bool p = (min-u() < a) && (a < max_u()) && (max_u()/a > a);
+	p = p && ((min-u() < b) && (b < max_u()) && (max_u()/b > b));
+	if(p){
+		return lcm(a,b);
+	}
+	throw
+	  std::runtime_error("over/underflowing");
 }
 
 int main(){
-	size_t  a = 0, b = 0, result_II = 0, result_III = 0;
-	std::cin >> b;
+	size_t a = 0, b = 0;
+	size_t result_II = 0, result_III = 0;
 	while(std::cin >> a){
-		
+		try{
+			result_II = ovrflw(a,b);
+			result_III+=a*a;
+			b = a;
+		} catch(const std::runtime_error &e){
+			std::cerr << e.what() << "\n";
+			return 2;
+		}
 	}
 	if(std::cin.eof()){
 		std::cout << result_II << " " << result_III << "\n";
