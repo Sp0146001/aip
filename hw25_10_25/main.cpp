@@ -34,7 +34,7 @@ size_t ovrflw(size_t a, size_t b){ //runtime-error
 }
 
 int main(){
-	size_t a = 0, b = 0;
+	size_t a = 1, b = 1;
 	size_t result_II = 0, result_III = 0;
 	while(std::cin >> a){
 		try{
