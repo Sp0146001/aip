@@ -12,19 +12,20 @@ size_t min_u(){
         return u_limit::min();
 }
 
-ize_t lcm(size_t  a, size_t  b){
+size_t lcm(size_t  a, size_t  b){
         while(a>0 && b>0){
                 if(a>b){
                         a%=b;
                 } else {
                         b%=a;
                 }
+	}
         return a+b;
 }
 
 size_t ovrflw(size_t a, size_t b){ //runtime-error
-	bool p = (min-u() < a) && (a < max_u()) && (max_u()/a > a);
-	p = p && ((min-u() < b) && (b < max_u()) && (max_u()/b > b));
+	bool p = (min_u() < a) && (a < max_u()) && (max_u()/a > a);
+	p = p && ((min_u() < b) && (b < max_u()) && (max_u()/b > b));
 	if(p){
 		return lcm(a,b);
 	}
