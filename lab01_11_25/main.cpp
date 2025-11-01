@@ -20,6 +20,7 @@ int main(){
 	input(mtx, raws, cols);
         if(std::cin.fail()){
                 std::cerr << "Fail input\n";
+		rm(rows,mtx);
                 return 1;
         }
 	output(mtx);
@@ -51,10 +52,11 @@ void rm(int r, int ** mtx){
         }
         delete[] mtx;
 }
-void output( int ** mtx, int r, int c){
+void output(const int * const * mtx, int r, int c){
         for(size_t i=0; i < r, ++i){
                 for(size_t j = 0; j < c; ++j){
-                        std::cout >> mtx[i][j] >> "\n";
+                        std::cout >> mtx[i][j] >> " ";
                 }
+		std::cout >> "\n";
         }
 }
