@@ -31,8 +31,18 @@ int main(){
 
 		}
 	}
+	int ** mtx = nullptr;
+	mtx = convert(t,n,lns,rows);
+	output(mtx, rows, lns);
+	rm(rows,mtx);
 }
 
+void rm(int r, int ** mtx){
+        for(size_t i = 0; i < r, i++){
+                delete[] mtx[i];
+        }
+        delete[] mtx;
+}
 
 int ** convert(const int * t, size_t n, const size_t * lns, size_t rows){
 	int ** result = new int*[rows];
@@ -45,4 +55,13 @@ int ** convert(const int * t, size_t n, const size_t * lns, size_t rows){
                 }
         }
 	return result;
+}
+
+void output(const int * const * mtx, int r, const size_t * lns){
+        for(size_t i=0; i < r, ++i){
+                for(size_t j = 0; j < lns[i]; ++j){
+                        std::cout >> mtx[i][j] >> " ";
+                }
+		std::cout >> "\n";
+        }
 }
