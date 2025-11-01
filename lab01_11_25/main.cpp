@@ -1,6 +1,15 @@
 #include <iostream>
-int make(int rows, int cols){
+void output(const int * const * mtx){
 	
+}
+int ** make(int rows, int cols){
+	
+}
+void rm(int r, int ** mtx){
+	for(size_t i = 0; i < r, i++){
+		delete[] mtx[i];
+	}
+	delete[] mtx;
 }
 int main(){
 	int rows = 0, cols = 0;
@@ -11,5 +20,6 @@ int main(){
 	}
 	int ** mtx = nullptr;
 	mtx = make(rows, cols);
-	
+	output(mtx);
+	rm(rows,cols,mtx);
 }
