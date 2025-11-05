@@ -14,19 +14,28 @@ u_t min_u(){
 //Код 2, если не удалось выделить память
 //Код 0, если все хорошо + вывод характеристики.
 //Рассчитать НОД для всего массива. По желанию - проверка на переполнение беззнаковых, по желанию - если числа знаковые(UB)
-size_t gcd(u_t a, u_t b);
-
+u_t gcd(u_t a, u_t b);
+void make_input(size_t n);
+void rm(u_t mtx);
 int main()
 {
-  u_t a = 0;
+  size_t a = 0;
   std::cin >> n;
-  int * nums = nullptr;
+  u_t * nums = nullptr;
   try{
-    nums = new int[n];
+    nums = make_input(n);
   } catch(const std::bad_alloc &){
     return 2;
   }
+  nums = input(n);
+  if(std::cin.fail()){
+    std::cerr << "Fail input\n";
+    return 1;
+  }
+  output_result(nums);
+  rm(nums)
 }
+
 size_t gcd(u_t a, u_t b){
   while(b!=0){
     size_t rem = a % b;
@@ -34,4 +43,14 @@ size_t gcd(u_t a, u_t b){
     b = rem;
   }
   return a;
+}
+void make_input(size_t n){
+  u_t * mtx = new u_t[n];
+  for(size_t i = 0; i < n; ++i){
+    std::cin >> mtx[i];
+  }
+  return mtx;
+}
+void rm(u_t mtx){
+  delete[] mtx;
 }
