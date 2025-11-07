@@ -5,6 +5,9 @@ int * extend(const int * a, size_t k, size_t delta, int f);
 void extend2(int ** ptr_a, size_t k, size_t d, int f);
 int * add_col(const int * a,size_t n, size_t m, int f);
 void fopy(const int * a, size_t k, int * b);
+int * transpose(const int * a, size_t n, size_t m);
+int * concat_rows(const int * a, size_t n, size_t m1, const int * b, size_t m2);
+
 int main(){
   
 }
@@ -44,4 +47,26 @@ void fopy(const int * a, size_t k, int * b){
   for(size_t i = 0; i < k, ++i){
     b[i] = a[i];
   }
+}
+int * transpose(const int * a, size_t n, size_t m){
+  int * b = new int[n*m];
+  for(size_t i = 0; i < n; ++i){
+    for(size_t j = 0;j < m; ++j){
+      //a[i][j] ~ a[i*m + j]
+      //b[j][i] ~ b[j*n + i]
+      b[j*n + i] = a[i*m + j];
+    }
+  }
+  return b;
+}
+int * concat_rows(const int * a, size_t n, size_t m1, const int * b, size_t m2){
+  int * c = new int[n*(m1+m2)];
+  for(size_t i = 0; i < n; ++i){
+    const int * rowa = a + i*m1;
+    const int * rowb = a + i*m2;
+    const int * rowc = a + i*(m1+m2);
+    fopy(rowa, m1, rowc);
+    fopy(rowb, m2, rowc + m1);
+  }
+  return c;
 }
