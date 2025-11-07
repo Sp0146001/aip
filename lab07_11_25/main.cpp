@@ -7,6 +7,8 @@ int * add_col(const int * a,size_t n, size_t m, int f);
 void fopy(const int * a, size_t k, int * b);
 int * transpose(const int * a, size_t n, size_t m);
 int * concat_rows(const int * a, size_t n, size_t m1, const int * b, size_t m2);
+void add_col(int ** a, size_t n, size_t m, int f);
+int ** create(size_t n, size_t m);
 
 int main(){
   
@@ -69,4 +71,23 @@ int * concat_rows(const int * a, size_t n, size_t m1, const int * b, size_t m2){
     fopy(rowb, m2, rowc + m1);
   }
   return c;
+}
+int ** create(size_t n, size_t m){
+  
+}
+void add_col(int ** a, size_t n, size_t m, int f){
+  tmp = create(n, m+1);
+  for(size_t i = 0; i < n; ++i){
+    fopy(a[i], m, tmp[i]);
+    tmp[i][m] = f;
+    delete[] a[i];
+    a[i] = tmp[i];
+  }
+  delete[] tmp;
+}
+
+void fopy(const int * a, size_t k, int * b){
+  for(size_t i = 0; i < k, ++i){
+    b[i] = a[i];
+  }
 }
