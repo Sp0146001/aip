@@ -1,5 +1,5 @@
 #include <iostream>
-
+int * add_row(const int * a,size_t n, size_t m, int filler);
 int * extend(const int * a, size_t k, size_t delta, int fill);
 void extend2(int ** ptr_a, size_t k, size_t d, int f);
 int main(){
@@ -20,3 +20,7 @@ void extend2(int ** ptr_a, size_t k, size_t d, int f){
   int * b = extend(*ptr_a, k, d, f);
   delete[] *ptr_a;
   *ptr_a = b;
+}
+int * add_row(const int * a,size_t n, size_t m, int filler){
+  return extend(a, m*n, m, filler);
+}
