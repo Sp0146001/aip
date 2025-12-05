@@ -20,11 +20,13 @@ namespace top {
   f_t frame(const p_t* pts, size_t s);
   char* canvas(f_t fr, char fill);
   void paint(char* cnv, f_t fr, p_t p, char fill);
+  flush(std::ostream& os, const char* cnv, f_t fr);
 }
 int main() {
   using top::Idrow;
   using top::Dot;
   using top::f_t;
+  using top::p_t;
   Idrow* shps[3] = {};
   int err = 0;
   size_t s = 0;
@@ -42,6 +44,7 @@ int main() {
     for (size_t i = 0; i < s; ++i) {
       paint(cnv, fr, pts[i], '#');
     }
+    flush(std:cout, cnv, fr);
   } catch (...) {
     err = 2;
     std::cerr << "bad drawing\n";
