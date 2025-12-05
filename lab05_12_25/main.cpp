@@ -18,6 +18,7 @@ namespace top {
   };
   size_t points(const Idrow& d, p_t** pts, size_t& s);
   f_t frame(const p_t* pts, size_t s);
+  char* canvas(f_t fr, char fill);
 }
 int main() {
   using top::Idrow;
@@ -35,6 +36,8 @@ int main() {
       s+=points(*shps[i], &pts, s);
     }
     f_t fr = frame(pts, s);
+    char* cnv = canvas(fr, '.');
+    delete[] cnv;
   } catch (...) {
     err = 2;
     std::cerr << "bad drawing\n";
