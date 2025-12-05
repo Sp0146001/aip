@@ -16,19 +16,29 @@ namespace top {
     p_t next() const override;
     p_t d;
   };
+  size_t points(const Idrow& d, p_t** pts, size_t& s);
+  f_t frame(const p_t* pts, size_t s);
 }
 int main() {
   using top::Idrow;
   using top::Dot;
+  using top::f_t;
   Idrow* shps[3] = {};
   int err = 0;
+  size_t s = 0;
+  p_t * pts = nullptr;
   try {
     shps[0] = new Dot{0, 0};
     shps[1] = new Dot{5, 7};
     shps[2] = new Dot{-5, -2};
+    for (size_t i = 0; i < s; ++i) {
+      s+=points(*shps[i], &pts, s);
+    }
+    f_t fr = frame(pts, s);
   } catch (...) {
     err = 2;
     std::cerr << "bad drawing\n";
+    delete[] pts;
     delete shps[0];
     delete shps[1];
     delete shps[2];
