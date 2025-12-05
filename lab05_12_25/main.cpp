@@ -18,7 +18,21 @@ namespace top {
   };
 }
 int main() {
-  using namespace top;
+  using top::Idrow;
+  using top::Dot;
+  Idrow* shps[3] = {};
+  int err = 0;
+  try {
+    shps[0] = new Dot{0, 0};
+    shps[1] = new Dot{5, 7};
+    shps[2] = new Dot{-5, -2};
+  } catch (...) {
+    err = 2;
+    std::cerr << "bad drawing\n";
+    delete shps[0];
+    delete shps[1];
+    delete shps[2];
+  }
   p_t a{1, 0}, b{0, 1};
   std::cout << (a==b) << '\n';
 }
@@ -30,7 +44,7 @@ top::Dot::Dot(int x, int y):
   Idrow(),
   d{x,y};
 {}
-top::p-t top::Dot::next(p_t prev) {
+top::p_t top::Dot::next(p_t prev) {
   if (prev != begin()) {
     throw std::logic_error("bad impl\n");
   }
