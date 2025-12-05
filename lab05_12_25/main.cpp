@@ -13,11 +13,44 @@ namespace top {
     Dot(int x, int y);
     explicit Dot(p_t dd);
     p_t begin() const override;
-    p_t next() const override;
+    p_t next(p_t) const override;
     p_t d;
   };
+  struct Vertical: Idrow {
+    p_t start, end;
+    Vertical(p_t down, p_t up) :
+      start(down), end(up)
+    {}
+    p_t begin() const override {
+      return start;
+    }
+    p_t next(p_t prev) const override {
+      if (prev.x < end.x) {
+        return p_t{prev.x, prev.y+1};
+      }
+      throw std::logic_error("end vertical\n");
+    }
+  }
+  struct Horizontal: Idrow {
+    p_t start, end;
+    Horizontal(p_t down, p_t up) :
+      start(down), end(up)
+    {}
+    p_t begin() const override {
+      return start;
+    }
+    p_t next(p_t prev) const override {
+      if (prev.x < end.x) {
+        return p_t{prev.x, prev.y+1};
+      }
+      throw std::logic_error("end horizontal\n");
+    }
+  }
+
   size_t points(const Idrow& d, p_t** pts, size_t& s);
+  //
   f_t frame(const p_t* pts, size_t s);
+  //построить полотно
   char* canvas(f_t fr, char fill);
   void paint(char* cnv, f_t fr, p_t p, char fill);
   flush(std::ostream& os, const char* cnv, f_t fr);
@@ -33,8 +66,8 @@ int main() {
   p_t * pts = nullptr;
   try {
     shps[0] = new Dot{0, 0};
-    shps[1] = new Dot{5, 7};
-    shps[2] = new Dot{-5, -2};
+    shps[1] = new Dot{0, 1};
+    shps[2] = new Dot{1, 0};
     for (size_t i = 0; i < s; ++i) {
       s+=points(*shps[i], &pts, s);
     }
