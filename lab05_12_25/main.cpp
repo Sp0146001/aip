@@ -6,8 +6,12 @@ namespace top {
   struct f_t { p_t aa, bb; };
   struct Idrow {
     virtual p_t begin() const = 0;
-    virtual p_t next() const = 0;
-    virtual ~Idrow();
+    virtual p_t next(p_t) const = 0;
+    virtual ~Idrow() = default;
+  };
+  struct Dot: Idrow {
+    p_t begin() const override;
+    p_t next() const override;
   };
 }
 int main() {
