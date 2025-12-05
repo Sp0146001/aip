@@ -16,6 +16,7 @@ namespace top {
     p_t next(p_t) const override;
     p_t d;
   };
+//ЭТО ЕЩЕ НЕ ДОДЕЛАНООООО
   struct Vertical: Idrow {
     p_t start, end;
     Vertical(p_t down, p_t up) :
@@ -41,7 +42,7 @@ namespace top {
     }
     p_t next(p_t prev) const override {
       if (prev.x < end.x) {
-        return p_t{prev.x, prev.y+1};
+        return p_t{prev.x+1, prev.y};
       }
       throw std::logic_error("end horizontal\n");
     }
