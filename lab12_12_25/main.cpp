@@ -18,48 +18,40 @@ namespace topit {
     p_t next(p_t) const override;
     p_t d;
   };
-    struct Vertical: Idrow {
+  struct Vertical: Idraw {
     p_t start, end;
     Vertical(p_t down, p_t up) :
       start(down), end(up)
     {}
-    p_t begin() const override {
+    p_t begin() const {
       return start;
     }
-    p_t next(p_t prev) const override {
+    p_t next(p_t prev) const {
       if (prev.x < end.x) {
         return p_t{prev.x, prev.y+1};
       }
       throw std::logic_error("end vertical\n");
     }
-  }
-  struct Horizontal: Idrow {
+  };
+  struct Horizontal: Idraw {
     p_t start, end;
     Horizontal(p_t down, p_t up) :
       start(down), end(up)
     {}
-    p_t begin() const override {
+    p_t begin() const {
       return start;
     }
-    p_t next(p_t prev) const override {
+    p_t next(p_t prev) const {
       if (prev.x < end.x) {
         return p_t{prev.x+1, prev.y};
       }
       throw std::logic_error("end horizontal\n");
     }
-  }
-
-  // Домашнее задание:
-  // - Добавить ещё 2-3 фигуры:
-  //   - Вертикальный отрезок
-  //   - Горизонтальный отрезок
-  //   - Диагональ под 45 заданной длины
-  //   - Придумать свою фигуру
-
-  // расширять заданный массив точками из очередной фигуры
+  };
+  void extend(p_t** pts, size_t s, p_t p);
   // - extend...
   size_t points(const IDraw& d, p_t** pts, size_t s);
-
+  
   // найти минимум и максимум по каждой координате среди точек и сформировать фрейм
   f_t frame(const p_t* pts, size_t s);
 
@@ -127,4 +119,23 @@ bool topit::operator==(p_t a, p_t b) {
 }
 bool topit::operator!=(p_t a, p_t b) {
   return !(a == b);
+}
+topit::void extend(p_t** pts, size_t s, p_t p) {
+  p_t* e = new p_t[s+1];
+  for (size_t i = 0; i < s; ++i){
+  e[i] = (*pts)[i]
+  }
+  e[s] = p;
+  delete[] *pts;
+  *pts = e;
+}
+size_t topit::points(const IDraw& d, p_t** pts, size_t s) {
+  size_t r = 1;
+  p_t p = d.begin();
+  while (d.next(p) != d.begin()) {
+    p = d.next(p);
+    extend(pts, s + r, p);
+    ++r;
+  }
+  return r;
 }
