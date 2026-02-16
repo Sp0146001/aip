@@ -38,6 +38,25 @@ T* remove (T* a, size_t s, T v) {
   return a+s;
 }
 
+template <class T>
+void reverse(T* a, size_t s) {
+  for (size_t i = 0; i < s/2; i++) {
+    std::swap(s[i+1], s[i]);
+  }
+}
+template <class T>
+T* reverse(const T* a, size_t s) {
+  T* r = new T[s];
+  try {
+    for (size_t i = 0; i < s/2; ++i) {
+      r[i] = a[s - (i + 1)];
+    }
+  } catch(...) {
+    delete[] r;
+    throw std::exception("error\n");
+  }
+  return r;
+}
 int main()
 {
   std::cout << "Hi\n";
