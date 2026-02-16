@@ -12,6 +12,32 @@ T* insert(const T* a, size_t s, size_t i, T v/*тут конструктор к�
   return r;//Тут нет никаких искл(тк копирование)
 }
 
+template < class T >
+void remove (T* a, size_t s, size_t i) {
+  for (size_t k = i; k < s-i; ++k) {
+    std::swap(a[k], a[k+1]);//опасное место, возможно исключение 
+  }
+}
+template < class T >
+T* remove (T* a, size_t s, T v) {
+  size_t i = 0;
+  try {
+    size_t& remains = 0;
+    while(i < s) {
+      if (a[i] == v) {/*оператор сравнения на равенство для T*/
+        remove(a, s--, i);
+      } else {
+        ++i;
+      }
+    }
+  } catch (...) {
+    remains = s;
+    throw std::exception("error\n");
+  }
+  remains = s;
+  return a+s;
+}
+
 int main()
 {
   std::cout << "Hi\n";
