@@ -28,4 +28,27 @@ List< T >* convert(const T* data, size_t s) {
   }
   return r;
 }
+template< class T, class C >//разделение списка на два с условием cond(class C).
+List<T>* split(List<T>** head, C cond) {
+  List<T>* redH = nullptr, *blueH = nullptr;
+  List<T>* H = head;
 
+}
+template< class T, class C >
+size_t count(const List<T>* head, C cond, List< const List<T>* >** chead, List< const List<T>* >** ctail) {
+  size_t res = 0;
+  bool fgHead = false;
+  bool fgTail = false;
+  while(head) {
+    try {}//снизу исключение
+    if(cond(head->val)) {
+      res++;
+      List< const
+    }
+    head = head->next;
+  }
+  *chead = h;
+  *ctail = t;
+  return res;
+}
+//test
