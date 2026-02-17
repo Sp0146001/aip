@@ -5,6 +5,14 @@ template< class T> struct  List
   List < T >* next;
 };
 template< class T>
+void clear(List<T>* h, List<T>* t) {
+  while(h!=t) {
+    List<T>* n = h->next;
+    delete[] h;
+    h = n;
+  }
+}
+template< class T>
 List< T >* convert(const T* data, size_t s) {
   List<T>* r = (!s) ? nullptr : new List<T>{data[0], nullptr};
   List<T>* t = r;
@@ -15,6 +23,7 @@ List< T >* convert(const T* data, size_t s) {
       t = n;
     }
   } catch (...) {
+    clear(r, nullptr);
     throw std::exception("err\n");
   }
   return r;
