@@ -64,3 +64,36 @@ void firstAdd(BiList<T>** head, BiList<T>** tail, const T value) {
     *head = newNode;
   }
 }
+template<class T>
+T popBack(BiList<T>** head, BiList<T>** tail) {
+  if (*tail == nullptr) {
+    return T{};
+  }
+  BiList<T>* toDelete = *tail;
+  *tail = (*tail)->prev;
+  if (*tail == nullptr) {
+    *head = nullptr;
+  } else {
+    (*tail)->next = nullptr;
+  }
+  T value = toDelete->val;
+  delete toDelete;
+  return value;
+}
+
+template<class T>
+T popFront(BiList<T>** head, BiList<T>** tail) {
+  if (*head == nullptr) {
+    return T{};
+  }
+  BiList<T>* toDelete = *head;
+  *head = (*head)->next;
+  if (*head == nullptr) {
+    *tail = nullptr;
+  } else {
+    (*head)->prev = nullptr;
+  }
+  T value = toDelete->val;
+  delete toDelete;
+  return value;
+}
