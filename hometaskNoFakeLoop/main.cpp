@@ -53,3 +53,14 @@ void append(BiList<T>** head, BiList<T>** tail, const T value) {
     *tail = newNode;
   }
 }
+template<class T>
+void firstAdd(BiList<T>** head, BiList<T>** tail, const T value) {
+  BiList<T>* newNode = createNode(value);
+  if (*head == nullptr) {
+    *head = *tail = newNode;
+  } else {
+    (*head)->prev = newNode;
+    newNode->next = *head;
+    *head = newNode;
+  }
+}
