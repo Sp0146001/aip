@@ -5,7 +5,21 @@ struct BiList {
     BiList<T>* next;
     BiList<T>* prev;
 };
+template< class T>
+T& value(BiList<T>* head) {
+  return head->val;
+}
+template< class T>
+BiList<T> next(BiList<T> it) {
+  it = it->next;
+  return it;
+}
+template< class T>
+bool hasNext(BiList<T> it) {
+  return it.next;
+}
+
 template<typename T>
-BiList<T>* create_node(const T& value) {
-  return new BiList<T>{value, nullptr, nullptr};
+BiList<T>* create_node(const T& val) {
+  return new BiList<T>{val, nullptr, nullptr};
 }
