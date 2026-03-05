@@ -97,3 +97,31 @@ T popFront(BiList<T>** head, BiList<T>** tail) {
   delete toDelete;
   return value;
 }
+template<class T>
+void print(BiList<T>* head, BiList<T>* /*tail*/) {
+  while (head != nullptr) {
+    std::cout << head->val << " ";
+    head = head->next;
+  }
+  std::cout << '\n';
+}
+template<class T>
+void insert(BiList<T>** head, BiList<T>** tail, const T value, BiList<T>* pos) {
+  BiList<T>* newNode = createNode(value);
+  newNode->next = pos->next;
+  newNode->prev = pos;
+  pos->next = newNode;
+  if (newNode->next != nullptr) {
+    newNode->next->prev = newNode;
+  } else {
+    *tail = newNode;
+  }
+}
+template< class T>
+void clear(BiList<T>** h, BiList<T>** t) {
+  while(h!=t) {
+    BiList<T>* n = h->next;
+    delete[] h;
+    h = n;
+  }
+}
