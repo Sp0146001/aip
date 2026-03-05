@@ -39,5 +39,17 @@ int main() {
 }
 template<class T>
 BiList<T>* createNode(const T& value) {
-    return new BiList<T>{value, nullptr, nullptr};
+  return new BiList<T>{value, nullptr, nullptr};
+}
+
+template<class T>
+void append(BiList<T>** head, BiList<T>** tail, const T value) {
+  BiList<T>* newNode = createNode(value);
+  if (*head == nullptr) {
+    *head = *tail = newNode;
+  } else {
+    (*tail)->next = newNode;
+    newNode->prev = *tail;
+    *tail = newNode;
+  }
 }
