@@ -160,3 +160,10 @@ T erase(BiList<T>** head, BiList<T>** tail, BiList<T>* pos) {
   delete pos;
   return value;
 }
+template<class T>
+void convert(BiList<T>** head, BiList<T>** tail, const T* a, size_t n) {
+  *head = *tail = createNode(a[0]);
+  for (size_t i = 1; i < n; ++i) {
+    append(head, tail, a[i]);
+  }
+}
