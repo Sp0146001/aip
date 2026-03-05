@@ -7,11 +7,9 @@ struct BiList {
 };
 template<class T>
 BiList<T>* createNode(const T& value);
-template<class T>
-void append(BiList<T>** head, BiList<T>** tail, const T value);
 
 template<class T>
-void firstAdd(BiList<T>** head, BiList<T>** tail, const T value);
+void append(BiList<T>** head, BiList<T>** tail, const T value);
 
 template<class T>
 T popBack(BiList<T>** head, BiList<T>** tail);
@@ -34,8 +32,25 @@ void clear(BiList<T>** head, BiList<T>** tail);
 template<class T>
 void convertation(BiList<T>** head, BiList<T>** tail, const T* a, size_t n);
 
-int main() {
-
+int main()
+{
+  size_t n = 10;
+  int *a = new int[n];
+  for (size_t i = 0; i < n; ++i)
+  {
+    a[i] = i;
+  }
+  BiList<int> *head = nullptr;
+  BiList<int> *tail = nullptr;
+  try{
+    convertation(&head, &tail, a, n);
+  } catch(...) {
+    delete[] a;
+    clear(&head, &tail);
+  }
+  print(head, tail);
+  delete[] a;
+  clear(&head, &tail);
 }
 template<class T>
 BiList<T>* createNode(const T& value) {
@@ -44,7 +59,7 @@ BiList<T>* createNode(const T& value) {
 
 template<class T>
 void append(BiList<T>** head, BiList<T>** tail, const T value) {
-  BiList<T>* newNode = createNode(value);
+  BiList<T>* newNode = createNode(value);//T::T()
   if (*head == nullptr) {
     *head = *tail = newNode;
   } else {
@@ -53,17 +68,7 @@ void append(BiList<T>** head, BiList<T>** tail, const T value) {
     *tail = newNode;
   }
 }
-template<class T>
-void firstAdd(BiList<T>** head, BiList<T>** tail, const T value) {
-  BiList<T>* newNode = createNode(value);
-  if (*head == nullptr) {
-    *head = *tail = newNode;
-  } else {
-    (*head)->prev = newNode;
-    newNode->next = *head;
-    *head = newNode;
-  }
-}
+
 template<class T>
 T popBack(BiList<T>** head, BiList<T>** tail) {
   if (*tail == nullptr) {
@@ -117,13 +122,14 @@ void insert(BiList<T>** head, BiList<T>** tail, const T value, BiList<T>* pos) {
     *tail = newNode;
   }
 }
-template< class T>
-void clear(BiList<T>** h, BiList<T>** t) {
-  while(h!=t) {
-    BiList<T>* n = h->next;
-    delete[] h;
-    h = n;
+template<class T>
+void clear(BiList<T>** head, BiList<T>** tail) {
+  while (*head != nullptr) {
+    BiList<T>* toDelete = *head;
+    *head = (*head)->next;
+    delete toDelete;
   }
+  *tail = nullptr;
 }
 template<class T>
 T erase(BiList<T>** head, BiList<T>** tail, BiList<T>* pos) {
@@ -161,7 +167,7 @@ T erase(BiList<T>** head, BiList<T>** tail, BiList<T>* pos) {
   return value;
 }
 template<class T>
-void convert(BiList<T>** head, BiList<T>** tail, const T* a, size_t n) {
+void convertation(BiList<T>** head, BiList<T>** tail, const T* a, size_t n) {
   *head = *tail = createNode(a[0]);
   for (size_t i = 1; i < n; ++i) {
     append(head, tail, a[i]);
