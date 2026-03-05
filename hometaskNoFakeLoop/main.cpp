@@ -6,6 +6,8 @@ struct BiList {
     BiList<T>* prev;
 };
 template<class T>
+BiList<T>* createNode(const T& value);
+template<class T>
 void append(BiList<T>** head, BiList<T>** tail, const T value);
 
 template<class T>
@@ -31,3 +33,11 @@ void clear(BiList<T>** head, BiList<T>** tail);
 
 template<class T>
 void convertation(BiList<T>** head, BiList<T>** tail, const T* a, size_t n);
+
+int main() {
+
+}
+template<class T>
+BiList<T>* createNode(const T& value) {
+    return new BiList<T>{value, nullptr, nullptr};
+}
