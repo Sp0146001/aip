@@ -16,6 +16,11 @@ template< class T> struct List {
 template< class T> struct ListIt {
   List<T>* curr;
 };
+template< class T>
+struct ListOfVecIt {
+  List< Vec<T> >* curr;
+  size_t i;
+};
 /* functions*/
 template< class T>
 VecIt<T> begin(Vec<T> v) {
@@ -52,3 +57,26 @@ template< class T>
 bool hasNext(ListIt<T> it) {
   return it.curr;
 }
+/*заново фигачим*/
+template< class T>
+ListIt<T*> begin(List<T*>* h) {
+  while(h) {
+    if (h->val) {
+      return {h};
+    }
+    h = h->next;
+  }
+  return nullptr;
+}
+template< class T>
+ListIt<T*> next(ListIt<T*>* it) {
+  return begin(it.curr->next);
+}
+template< class T>
+bool hasNext(ListIt<T*>* it) {
+  return it.curr;
+}
+template< class T>
+T& value() {
+  return *(it.curr->val);
+}x`
