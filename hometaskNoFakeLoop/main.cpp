@@ -125,3 +125,38 @@ void clear(BiList<T>** h, BiList<T>** t) {
     h = n;
   }
 }
+template<class T>
+T erase(BiList<T>** head, BiList<T>** tail, BiList<T>* pos) {
+  if (*head == nullptr || pos == nullptr) {
+    return T{};
+  }
+  if (*head == *tail) {
+    if (*head != pos) {
+      return T{};
+    }
+    T value = (*head)->val;
+    delete *head;
+    *head = *tail = nullptr;
+    return value;
+  }
+  BiList<T>* cur = *head;
+  while (cur != nullptr && cur != pos) {
+    cur = cur->next;
+  }
+  if (cur == nullptr) {
+    return T{};
+  }
+  if (pos->prev != nullptr) {
+    pos->prev->next = pos->next;
+  } else {
+    *head = pos->next;
+  }
+  if (pos->next != nullptr) {
+    pos->next->prev = pos->prev;
+  } else {
+    *tail = pos->prev;
+  }
+  T value = pos->val;
+  delete pos;
+  return value;
+}
