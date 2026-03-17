@@ -3,9 +3,13 @@
 
 bool testDefaultVector() {
   topit::Vector< int >* v;
-  return v->isEmpty();
+  return !v->isEmpty();
 }
-
+bool testVectorWithValue() {
+  topit::Vector<int> v;
+  v.pushBack(1);
+  return !v.isEmpty();
+}
 int main() {
   using test_t = bool(*)();
   using pair_t = std::pair<const char*, test_t >;
@@ -16,6 +20,6 @@ int main() {
   std::cout << std::boolalpha;
   for (size_t i = 0; i < count; ++i) {
     bool res = tests[i].second;
-    std::cout << tests[i].first << !res << '\n';
+    std::cout << res << tests[i].first << '\n';
   }
 }

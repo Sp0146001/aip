@@ -10,7 +10,11 @@ namespace topit {
     Vector< T >& operator=(const Vector<T>&) = delete;
 
     bool isEmpty() const noexcept;
-
+    size_t getSize() const noexcept;
+    size_t getCapacity() const noexcept;
+    
+    void pushBack(const T&);
+    void pushBack(T&);
    private:
     T* data_;
     size_t size_, capacity_;
