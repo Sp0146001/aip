@@ -62,3 +62,8 @@ List< Vec<T> >* copy(List< Vec<T> >* h) {
   }
 
 }
+
+template< class T>/*task 4.1*/
+Vec< List<T>* > balanced_copy(Vec< List<T>* > v, size_t k) {
+  
+}
