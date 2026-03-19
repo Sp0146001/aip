@@ -10,6 +10,26 @@ bool testVectorWithValue() {
   v.pushBack(1);
   return !v.isEmpty();
 }
+bool testVectorConstructor() {
+  topit::Vector<int> v;
+  v.pushBack(1);
+  topit::Vector<int> yav = v;
+}
+bool testElementAssert() {
+  topit::Vector<int> v;
+  v.pushBack(1);
+  v.pushBack(2);
+  return v[0] == 1 && v[1] == 2;
+}
+bool testCopyConstructor() {
+  topit::Vector<int> v;
+  v.pushBack(1);
+  topit::Vector<int> yav = v;
+  bool isAllEqual = v.getSize() == yav.getSize();
+  for (size_t i = 0; isAllEqual && i < v.getSize(); ++i) {
+    
+  }
+}
 int main() {
   using test_t = bool(*)();
   using pair_t = std::pair<const char*, test_t >;
