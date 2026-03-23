@@ -18,6 +18,7 @@ namespace topit {
     void swap(Vector< T >& rhs) noexcept;
     void pushBack(const T&);
     void pushBack(T&);
+    void pushFront(const T&);
   private:
     T* data_;
     size_t size_, capacity_;
@@ -83,5 +84,14 @@ template< class T>
 topit::Vector<T>::~Vector() {
   delete [] data_;
 }
-
+template< class T >
+void topit::Vector<T>::pushFront(const T& val) {
+  
+  Vector< T > cpy(val.getSize() + 1);
+  cpy[0] = val;
+  for (size_t i = 1; i < cpy.getSize(); ++i) {
+    cpy[i] = (*this)[i-1];
+  }
+  swap(cpy);
+}
 #endif

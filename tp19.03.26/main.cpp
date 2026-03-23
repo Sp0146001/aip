@@ -27,7 +27,7 @@ bool testCopyConstructor() {
   topit::Vector<int> yav = v;
   bool isAllEqual = v.getSize() == yav.getSize();
   for (size_t i = 0; isAllEqual && i < v.getSize(); ++i) {
-    
+
   }
 }
 int main() {
@@ -35,7 +35,10 @@ int main() {
   using pair_t = std::pair<const char*, test_t >;
   pair_t tests[] = {
     {"test def vector ", testDefaultVector},
-    {"sec test", testVectorWithValue}
+    {"sec test", testVectorWithValue},
+    {"", testVectorConstructor},
+    {"", testElementAssert},
+    {"", testCopyConstructor}
   };
   const size_t count = sizeof(tests)/sizeof(pair_t);
   std::cout << std::boolalpha;
