@@ -5,7 +5,15 @@
 #include <cstddef>
 #include <stdexcept>
 #include <utility>
-
+/*сделать метод insert, вставляющий(2 метода)
+ а так же метод erase(2 метода)
+ для этого напистаь тесты
+ строгая гарантия безопасности, идиома copy&swap
+ написать ещё один insert */
+/*
+ реализовать иетраторы для вектора
+ придумать ещё по 3 erase, insert
+*/
 namespace topit
 {
   template < class T >
@@ -21,6 +29,8 @@ namespace topit
     bool isEmpty() const noexcept;
     size_t getSize() const noexcept;
     size_t getCapacity() const noexcept;
+    const T& at(size_t id) const;
+    T& at(size_t id);
 
     T& operator[](size_t id) noexcept;
     const T& operator[](size_t id) const noexcept;
@@ -60,6 +70,37 @@ template < class T >
 topit::Vector< T >::~Vector()
 {
   delete[] data_;
+}
+
+template< class T >
+T& topit::Vector<T>::at(size_t id) {
+  const Vector<T>* cthis = this;
+  const T& ret = (*cthis)[id];
+  return const_cast< T& >(ret);
+}
+template< class T >
+T& topit::Vector<T>::at(size_t id) {
+  if (id < getSize()) {
+    return data_[i];
+  }
+  throw::std::range_error("bad id");
+}
+template< class T >
+const T& topit::Vector<T>::at(size_t id) const {
+  if (id < getSize()) {
+    return (*this)[id];
+  }
+  throw::std::range_error("bad id");
+}
+
+template< class T >
+topit::Vector<T>& topit::Vector<T>::operator=(Vector<T>&& rhs) noexcept {
+  if (this == std::addressof(rhs)) {
+    return *this;
+  }
+  Vector<T> cpy(std::move(rhs));
+  swap(cpy);
+  return *this;
 }
 
 template < class T >
