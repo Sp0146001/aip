@@ -31,7 +31,9 @@ namespace topit
     size_t getCapacity() const noexcept;
     const T& at(size_t id) const;
     T& at(size_t id);
+    Vector(std::initializer_list< T > il);
 
+    
     T& operator[](size_t id) noexcept;
     const T& operator[](size_t id) const noexcept;
 
@@ -55,6 +57,16 @@ topit::Vector< T >::Vector(): data_(nullptr), size_(0), capacity_(0)
 template < class T >
 topit::Vector< T >::Vector(size_t k): data_(new T[k]), size_(k), capacity_(k)
 {
+}
+
+template< class T >
+topit::Vector<T>::Vector(std::initializer_list< T > il):
+  Vector(il.size())
+{
+  size_t i = 0
+  for (auto&& v: il) {
+    data_[i++] = v;
+  }
 }
 
 template < class T >
