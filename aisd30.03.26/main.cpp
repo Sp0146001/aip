@@ -136,7 +136,7 @@ bool testElementConstAccess()
   topit::Vector< int >& v;
   v.pushBack(1);
   v.pushBack(2);
-  const topit::Vector<int>& rv = v;
+  topit::Vector<int>& rv = v;
   return rv[0] == 1 && rv[1] == 2;
 }
 
@@ -158,7 +158,7 @@ bool testElementInboundCheckedAccess()
   v.pushBack(1);
   const topit::Vector<int>& rv = v;
   try {
-    int& val = rv.at(0);
+    const int& val = rv.at(0);
     return val == 1;
   } catch(const std::out_of_range&) {
     return true;
@@ -167,8 +167,15 @@ bool testElementInboundCheckedAccess()
   }
 }
 
-
-
+bool testInitializerListConstruct() {
+  topit::Vector<int> v{1, 2};
+  return v.getSize() == 2;
+}
+bool test() {
+  topit::Vector< int > v{1ull,2};
+  std::cout << "test1: " << v.getSize() << '\n';
+  return true;
+}
 int main()
 {
   using test_t = bool (*)();
@@ -188,7 +195,9 @@ int main()
     {"Vector size equals number of elements", testSizeWithValue},
     {"PopBack on empty vector throws exception", testPopWithEmptyVector},
     {"PopBack on single-element vector makes it empty", testPopWithOneValue},
-    {"PopBack reduces size and preserves remaining elements", testPopWithMoreValues}
+    {"PopBack reduces size and preserves remaining elements", testPopWithMoreValues},
+    {"Initializer list test lenght", testInitializerListConstruct},
+    {"test of lenght(50/50)", test()}
   };
   const size_t count = sizeof(tests) / sizeof(pair_t);
   std::cout << std::boolalpha;
@@ -203,3 +212,4 @@ int main()
   std::cout << "\nOverall result: " << pass << '\n';
   return 0;
 }
+

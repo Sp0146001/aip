@@ -14,6 +14,9 @@
  реализовать иетраторы для вектора
  придумать ещё по 3 erase, insert
 */
+
+//Hometask from 30.03.26
+//Переделать работу с памятью, вектору НЕ требуется конструктор по умолчанию.
 namespace topit
 {
   template < class T >
@@ -25,15 +28,19 @@ namespace topit
     Vector< T >& operator=(const Vector< T >&);
 
     void swap(Vector< T >& rhs) noexcept;
-
+    //Классная работа ()!
+    void reserve(size_t cap);
+    void shrinkToFit();
+    //Classwork
+    void reserve(size_t pos, size_t count);
     bool isEmpty() const noexcept;
     size_t getSize() const noexcept;
     size_t getCapacity() const noexcept;
     const T& at(size_t id) const;
     T& at(size_t id);
-    Vector(std::initializer_list< T > il);
+    explicit Vector(std::initializer_list< T > il);
+    Vector(size_t k, const T& v);
 
-    
     T& operator[](size_t id) noexcept;
     const T& operator[](size_t id) const noexcept;
 
@@ -204,6 +211,11 @@ void topit::Vector< T >::popBack()
   --size_;
 }
 
+template< class T, class IT >
+size_t topit::Vector< T >pushBackRange(IT begin, IT end) {
+  size_t k = 0;
+  for (IT i = begin; i != end; i++; k++);
+}
 template < class T >
 void topit::Vector< T >::pushFront(const T& val)
 {
@@ -215,5 +227,24 @@ void topit::Vector< T >::pushFront(const T& val)
   }
   swap(cpy);
 }
-
+template< class T >
+void topit::Vector< T >::reserve(size_t cap) {
+  if (!(capacity_ < cap)) {
+    return;
+  }
+  T* d = new T[cap];
+  try {
+    for (size_t i = 0; i < getSize(); ++i) {
+      d[i] = data_[i];
+    }
+  } catch (...) {
+    delete[] d;
+    throw;
+  }
+  delete[] data_;
+  data_ = d;
+  capacity_ = cap;
+}
+template< class T >
 #endif
+
